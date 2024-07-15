@@ -45,8 +45,10 @@
 	var/allow_riding = TRUE
 	///Whether the borg can stuff itself into disposals
 	var/canDispose = FALSE
-	///The y offset of  the hat put on
+	///The y offset of the hat put on for symmetrical borg
 	var/hat_offset = -3
+	///The offsets of a hat for asymmetrical borg
+	var/list/hat_dir_offsets = list()
 	///The x offsets of a person riding the borg
 	var/list/ride_offset_x = list("north" = 0, "south" = 0, "east" = -6, "west" = 6)
 	///The y offsets of a person riding the borg
@@ -274,6 +276,8 @@
 			special_light_key = details[SKIN_LIGHT_KEY]
 		if(!isnull(details[SKIN_HAT_OFFSET]))
 			hat_offset = details[SKIN_HAT_OFFSET]
+		if(!isnull(details[SKIN_HAT_DIR_OFFSET]))
+			hat_dir_offsets = details[SKIN_HAT_DIR_OFFSET]
 		if(!isnull(details[SKIN_TRAITS]))
 			model_traits += details[SKIN_TRAITS]
 	for(var/i in old_model.added_modules)
@@ -400,7 +404,7 @@
 	cyborg_base_icon = "engineer"
 	model_select_icon = "engineer"
 	model_traits = list(TRAIT_NEGATES_GRAVITY)
-	hat_offset = -4
+	hat_dir_offsets = list("north" = list(0, -4), "south" = list(0, -4), "east" = list(4, -4), "west" = list(-4, -4))
 
 /obj/item/robot_model/janitor
 	name = "Janitor"
